@@ -26,6 +26,11 @@ class TableViewCell: UITableViewCell {
         return viewModel
     }()
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        movieCollectionView.collectionViewLayout.invalidateLayout()
+    }
+    
     var movie: Movie? {
         didSet {
             configureUI()
@@ -44,8 +49,6 @@ class TableViewCell: UITableViewCell {
     public func configureUI() {        
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
-        let width = UIScreen.main.bounds.width
-        flowLayout.itemSize = CGSize(width: width / 3, height: width / 2)
         flowLayout.minimumLineSpacing = 0.0
         flowLayout.minimumInteritemSpacing = 0.0
         movieCollectionView.register(UINib(nibName: "MovieCell", bundle: nil), forCellWithReuseIdentifier: collectionViewId)
@@ -63,6 +66,7 @@ class TableViewCell: UITableViewCell {
 
 extension TableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.set(movieDetails: movie?.results[indexPath.row] ?? MovieDetail(posterPath: "", title: "", voteAverage: 0.0))
         if viewModel.isVoteAverageGood {
             if let detailsVC = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "DetailsVC") as? DetailsVC {
                 detailsVC.set(viewModel: viewModel)
@@ -86,5 +90,9 @@ extension TableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, U
         viewModel.set(movieDetails: movie?.results[indexPath.row] ?? MovieDetail(posterPath: "", title: "", voteAverage: 0.0))
         cell.viewModel = viewModel
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: movieCollectionView.frame.height * 0.8, height: movieCollectionView.frame.height)
     }
 }

@@ -29,5 +29,6 @@ class MovieCell: UICollectionViewCell {
         posterImageView.contentMode = .scaleAspectFit
         voteImageView.layer.zPosition = 1
         self.backgroundColor = .black
+//        posterImageView.backgroundColor = .systemPink
     }
 }
