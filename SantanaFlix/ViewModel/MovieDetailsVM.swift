@@ -8,6 +8,9 @@
 import Foundation
 
 class MovieDetailsVM {
+    
+    // MARK: - Properties
+    
     private var movieDetails: MovieDetail? = nil
     
     init() { }

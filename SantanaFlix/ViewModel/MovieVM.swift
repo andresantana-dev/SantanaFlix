@@ -12,6 +12,9 @@ protocol MovieVMDelegate: AlertHelper {
 }
 
 class MovieVM: NSObject {
+    
+    // MARK: - Properties
+    
     private weak var delegate: MovieVMDelegate? = nil
     
     private var isSuccess = true
@@ -31,6 +34,8 @@ class MovieVM: NSObject {
     public func set(delegate: MovieVMDelegate) {
         self.delegate = delegate
     }
+    
+    // MARK: - API Methods
     
     private func fetchAllTheMovies() {
         let group = DispatchGroup()

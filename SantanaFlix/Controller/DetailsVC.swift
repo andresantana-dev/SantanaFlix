@@ -9,6 +9,9 @@ import UIKit
 import Kingfisher
 
 class DetailsVC: UIViewController {
+    
+    // MARK: - Properties
+    
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var voteLabel: UILabel!
     @IBOutlet weak var backButton: UIButton!
@@ -18,12 +21,16 @@ class DetailsVC: UIViewController {
     public func set(viewModel: MovieDetailsVM) {
         self.viewModel = viewModel
     }
+    
+    // MARK: - Lifecycle
         
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
         setupNavigationBar()
     }
+    
+    // MARK: - Helpers
     
     private func configureUI() {
         self.view.backgroundColor = .black
@@ -43,6 +50,8 @@ class DetailsVC: UIViewController {
     private func setupNavigationBar() {
         navigationController?.navigationBar.isHidden = true
     }
+    
+    // MARK: - Action
     
     @IBAction func backButton(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)

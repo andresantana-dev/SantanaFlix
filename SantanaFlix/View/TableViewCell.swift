@@ -7,11 +7,15 @@
 
 import UIKit
 
+
 protocol TableViewCellAlertDelegate: class {
     func showAlert()
 }
 
 class TableViewCell: UITableViewCell {
+    
+    // MARK: - Properties
+
     @IBOutlet weak var movieCollectionView: UICollectionView!
     @IBOutlet weak var titleLabel: UILabel!
     
@@ -26,14 +30,10 @@ class TableViewCell: UITableViewCell {
         return viewModel
     }()
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        movieCollectionView.collectionViewLayout.invalidateLayout()
-    }
-    
     var movie: Movie? {
         didSet {
             configureUI()
+            configureCollectionView()
             movieCollectionView.reloadData()
         }
     }
@@ -46,7 +46,16 @@ class TableViewCell: UITableViewCell {
         self.parent = parent
     }
     
-    public func configureUI() {        
+    // MARK: - Helpers
+    
+    private func configureUI() {
+        titleLabel.text = title
+        titleLabel.textColor = .white
+        
+        self.backgroundColor = .black
+    }
+    
+    private func configureCollectionView() {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         flowLayout.minimumLineSpacing = 0.0
@@ -54,15 +63,12 @@ class TableViewCell: UITableViewCell {
         movieCollectionView.register(UINib(nibName: "MovieCell", bundle: nil), forCellWithReuseIdentifier: collectionViewId)
         movieCollectionView.delegate = self
         movieCollectionView.dataSource = self
-        movieCollectionView.collectionViewLayout = flowLayout
         movieCollectionView.showsHorizontalScrollIndicator = false
-                
-        titleLabel.text = title
-        titleLabel.textColor = .white
-        
-        self.backgroundColor = .black
+        movieCollectionView.collectionViewLayout = flowLayout
     }
 }
+
+// MARK: - UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
 
 extension TableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

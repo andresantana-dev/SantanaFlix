@@ -9,6 +9,9 @@ import UIKit
 import Kingfisher
 
 class MovieCell: UICollectionViewCell {
+    
+    // MARK: - Properties
+    
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var voteImageView: UIImageView!
     
@@ -18,6 +21,9 @@ class MovieCell: UICollectionViewCell {
             setupPosterAndVote()
         }
     }
+    
+    
+    // MARK: - Helpers
     
     private func setupPosterAndVote() {        
         posterImageView.kf.setImage(with: viewModel?.poster)
@@ -29,6 +35,5 @@ class MovieCell: UICollectionViewCell {
         posterImageView.contentMode = .scaleAspectFit
         voteImageView.layer.zPosition = 1
         self.backgroundColor = .black
-//        posterImageView.backgroundColor = .systemPink
     }
 }

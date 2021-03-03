@@ -8,6 +8,9 @@
 import Foundation
 
 class ServiceAPI {
+    
+    // MARK: - Properties
+    
     static let shared = ServiceAPI()
     private init() {}
     
@@ -15,6 +18,7 @@ class ServiceAPI {
     private let apiURL = "https://api.themoviedb.org/3"
     private var dataTask: URLSessionDataTask?
     
+    // MARK: - Methods
     
     func fetchMovies(endpoint: MovieListEndpoint, completion: @escaping(Result<Movie, ServiceError>) -> Void) {
         guard let url = URL(string: "\(apiURL)/movie/\(endpoint.rawValue)") else {

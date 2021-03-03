@@ -8,6 +8,9 @@
 import UIKit
 
 class ListVC: UITableViewController, UIAnimatable {
+    
+    // MARK: - Properties
+    
     private let tableViewId = "tableCellId"
     
     private lazy var viewModel: MovieVM = {
@@ -15,13 +18,18 @@ class ListVC: UITableViewController, UIAnimatable {
         viewModel.set(delegate: self)
         return viewModel
     }()
-                
+            
+    
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         showLoadingAnimation()
         setupNavigationBar()
         setupTableView()
     }
+    
+    // MARK: - Helpers
     
     private func setupNavigationBar() {
         navigationController?.navigationBar.isHidden = true
@@ -34,6 +42,8 @@ class ListVC: UITableViewController, UIAnimatable {
         tableView.separatorStyle = .none
         tableView.backgroundColor = .black
     }
+    
+    // MARK: - UITableViewDelegate, UITableViewDataSource
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
@@ -62,6 +72,8 @@ class ListVC: UITableViewController, UIAnimatable {
     }
 }
 
+// MARK: - MovieVMDelegate
+
 extension ListVC: MovieVMDelegate {
     func handler(fetching finished: Bool, error: ServiceError?) {        
         if let error = error {
@@ -72,6 +84,8 @@ extension ListVC: MovieVMDelegate {
         hideLoadingAnimation()
     }
 }
+
+// MARK: - TableViewCellAlertDelegate
 
 extension ListVC: TableViewCellAlertDelegate {
     func showAlert() {
