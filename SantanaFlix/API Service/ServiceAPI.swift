@@ -14,7 +14,7 @@ class ServiceAPI {
     static let shared = ServiceAPI()
     private init() {}
     
-    private let apiKey = "2b5bd634a80716ebbf786c6367b9ea04"
+    private let apiKey = ""
     private let apiURL = "https://api.themoviedb.org/3"
     private var dataTask: URLSessionDataTask?
     
