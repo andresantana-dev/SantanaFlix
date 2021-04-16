@@ -51,21 +51,21 @@ class MovieVM: NSObject {
 
     private func fetchMovies(with endpoint: MovieListEndpoint, group: DispatchGroup) {
         group.enter()
-        ServiceAPI.shared.fetchMovies(endpoint: endpoint) { [self] result in
+        ServiceAPI.shared.fetchMovies(endpoint: endpoint) { [weak self] result in
             switch result {
             case .failure(let error):
-                isSuccess = false
-                fetchError = error
+                self?.isSuccess = false
+                self?.fetchError = error
             case .success(let movie):
                 switch endpoint {
                 case .nowPlaying:
-                    nowPlayingMovies = movie
+                    self?.nowPlayingMovies = movie
                 case .upcoming:
-                    upcomingMovies = movie
+                    self?.upcomingMovies = movie
                 case .topRated:
-                    topRatedMovies = movie
+                    self?.topRatedMovies = movie
                 case .popular:
-                    popularMovies = movie
+                    self?.popularMovies = movie
                 }
             }
             group.leave()
